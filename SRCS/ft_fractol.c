@@ -63,12 +63,24 @@ void	ft_mandelbrot(t_info *info)
 			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) // dif func try 3
 				square_root_madel(info->mandel);
 			// handle madelbrot equation using correct var's
-			  
+			//all_pixel(info, info->mandel->x, info->mandel->y, info->mandel->p_iterate * info->mandel-color);  
 			info->mandel->y++;
 		}
 		info->mandel->x++;
 	}
 
+}
+void	all_pixel(t_info *info, int x, int y, int pix_color)
+{
+	void	*i;
+	int		hex;
+
+	if (x < WIDTH && y < HEIGHT)
+	{
+		i = mlx_get_data_addr(info->mlx_image, &(info->bits_per_pix), &(info->size_l), &(info->endian));
+		hex = mlx_get_color_value(info->mlx, pix_color);
+		ft_memcpy(i + 4 * WIDTH * y + x * 4, &hex, sizeof(int));
+	}
 }
 
 t_man		square_root_mandel(t_man *mandel) // return pointer

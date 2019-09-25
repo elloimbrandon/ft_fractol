@@ -6,7 +6,7 @@
 /*   By: brandonf <brfeltz@student.42.us.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/24 18:04:11 by brandonf         ###   ########.fr       */
+/*   Updated: 2019/09/24 19:33:32 by brandonf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_mandel
 	int				temp_y;
 	int				imag_x;
 	int				imag_y;
+	int				color;
 	int				count;
 	int				p_iterate;
 	double			real_x;
