@@ -6,7 +6,7 @@
 /*   By: brandonf <brfeltz@student.42.us.org>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/24 19:33:32 by brandonf         ###   ########.fr       */
+/*   Updated: 2019/09/24 21:41:26 by brandonf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void		init_struct(t_info *info, int argc);
 void		arg_check(char	*str, t_info *info);
 void		check_form(t_info *info);
 void		handle_mlx(t_info *info);
-void		i_window(t_info *info, t_info mlx_window, t_info mlx_image);
 void		error_management(int arg, t_info *info);
 void		key_management(int key, t_info *info);
 void		mouse_management(int key,t_info *info);
@@ -119,7 +118,9 @@ void		motion_management(int key, t_info *info);
 void		ft_mandelbrot(t_info *info);
 void		ft_julia(t_info *info);
 void		ft_burns(t_info *info);
+void		all_pixel(t_info *info, int x, int y, int pix_color);
 void		m_scale(t_info *info);
-int			ft_close(void *ptr)
+t_man		square_root_mandel(t_man *mandel);
+int			ft_close(void *ptr);
 
 #endif

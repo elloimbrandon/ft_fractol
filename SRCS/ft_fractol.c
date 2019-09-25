@@ -18,17 +18,22 @@ int		main(int argc, char **argv)
 			handle_mlx(info);
 			check_form(info);
 			printf("success!\n"); ///// REMOVE
-			// could change, just thinking ahead
-			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
-			// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
-			// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
+			mlx_hook(info->mlx_window, 2, 0, key_management, info);
+			mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
+			mlx_hook(info->mlx_window, 6, 0, motion_management, info);
 			// mlx_hook(info->mlx_window, 17, 0, ft_close, info);
-			// mlx_loop(info->mlx);
+			mlx_loop(info->mlx);
 		}
 	}
 	else
 		error_management(argc, info);
 }
+
+/*
+** Here we check again, a third time to see which argument/fractal was passed
+** and which fractal algorithm function to use and from there it will go through
+** a series of functions and after print it into a mlx window.
+*/
 
 void	check_form(t_info *info)
 {
@@ -46,11 +51,6 @@ void	check_form(t_info *info)
 	
 }
 
-void	i_window(t_info *info, t_info mlx_window, t_info mlx_image)
-{
-
-}
-
 void	ft_mandelbrot(t_info *info)
 {
 	while(info->mandel->x != WIDTH)
@@ -59,15 +59,18 @@ void	ft_mandelbrot(t_info *info)
 		{
 			m_scale(info);
 			info->mandel->count = 0; // try without?
-			while(++info->mandel->count != info->mandel->p_iterate &&  
+			while (++info->mandel->count != info->mandel->p_iterate &&  
 			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) // dif func try 3
 				square_root_madel(info->mandel);
-			// handle madelbrot equation using correct var's
-			//all_pixel(info, info->mandel->x, info->mandel->y, info->mandel->p_iterate * info->mandel-color);  
+			if (info->mandel->p_iterate == info->mandel->count)
+				all_pixel(info, info->mandel->x, info->mandel->y, 0);
+			else
+				all_pixel(info, info->mandel->x, info->mandel->y, info->mandel->count * info->mandel->color);
 			info->mandel->y++;
 		}
 		info->mandel->x++;
 	}
+	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 
 }
 void	all_pixel(t_info *info, int x, int y, int pix_color)
@@ -90,6 +93,7 @@ t_man		square_root_mandel(t_man *mandel) // return pointer
 	mandel->real_y = 2 * mandel->imag_x * mandel->imag_y;
 	mandel->imag_x = mandel->real_x + mandel->imag_x;
 	mandel->imag_y = mandel->real_y + mandel->imag_y;
+	mandel->temp = 0;
 	return (*mandel);
 
 }
