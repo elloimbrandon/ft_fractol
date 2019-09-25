@@ -1,6 +1,7 @@
 #include "../HEADERS/ft_fractol.h"
 #include <stdio.h> ///// REMOVEEEEEEEEEEEE
-
+// BONUS ----->
+//Two valid parameters in the command line, resulting in two fractals in two windows.
 
 int		main(int argc, char **argv)
 {
@@ -61,7 +62,7 @@ void	ft_mandelbrot(t_info *info)
 			info->mandel->count = 0; // try without?
 			while (++info->mandel->count != info->mandel->p_iterate &&  
 			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) // dif func try 3
-				square_root_madel(info->mandel);
+				square_root_madel(info->mandel); // possibly change the line above to count < MAXCOUNT
 			if (info->mandel->p_iterate == info->mandel->count)
 				all_pixel(info, info->mandel->x, info->mandel->y, 0);
 			else
@@ -71,7 +72,6 @@ void	ft_mandelbrot(t_info *info)
 		info->mandel->x++;
 	}
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
-
 }
 void	all_pixel(t_info *info, int x, int y, int pix_color)
 {
@@ -207,17 +207,17 @@ void	error_management(int argc, t_info *info)
 	}
 }
 
-// void	mouse_management(int key, t_info *info)
+// int	mouse_management(int key, t_info *info)
 // {
 
 // }
 
-// void	key_management(int key, t_info *info)
+// int	key_management(int key, t_info *info)
 // {
 
 // }
 
-// void	motion_management(int key, t_info *info)
+// int	motion_management(int key, t_info *info)
 // {
 
 // }
