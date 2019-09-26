@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fractol.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brandonf <brfeltz@student.42.us.org>       +#+  +:+       +#+        */
+/*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/24 23:43:41 by brandonf         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:22:12 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 ** Macros
 */
 
-# define HEIGHT 1000
-# define WIDTH 1000
+# define HEIGHT 700
+# define WIDTH 700
 
 /*
 ** Structs
@@ -117,10 +117,10 @@ void		ft_julia(t_info *info);
 void		ft_burns(t_info *info);
 void		m_scale(t_info *info);
 void		all_pixel(t_info *info, int x, int y, int pix_color);
-t_man		square_root_mandel(t_man *mandel);
-int			key_management(int key, t_info *info);
-int			mouse_management(int key,t_info *info);
-int			motion_management(int key, t_info *info);
-int			ft_close(void *ptr);
+t_man		*square_root_mandel(t_man *mandel);
+// int			key_management(int key, t_info *info);
+// int			mouse_management(int key,t_info *info);
+// int			motion_management(int key, t_info *info);
+// int			ft_close(void *ptr);
 
 #endif

@@ -19,9 +19,9 @@ int		main(int argc, char **argv)
 			handle_mlx(info);
 			check_form(info);
 			printf("success!\n"); ///// REMOVE
-			mlx_hook(info->mlx_window, 2, 0, key_management, info);
-			mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
-			mlx_hook(info->mlx_window, 6, 0, motion_management, info);
+			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
+			// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
+			// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
 			// mlx_hook(info->mlx_window, 17, 0, ft_close, info);
 			mlx_loop(info->mlx);
 		}
@@ -40,10 +40,10 @@ void	check_form(t_info *info)
 {
 	if (info->check_m)
 		ft_mandelbrot(info); //function for mandelbrot
-	if (info->check_j)
-		ft_julia(info); //function for julia
-	if (info->check_b)
-		ft_burns(info); //funciton for burns
+	//if (info->check_j)
+	//	ft_julia(info); //function for julia
+	//if (info->check_b)
+	//	ft_burns(info); //funciton for burns
 	else
 	{
 		ft_putendl("Error");
@@ -54,15 +54,17 @@ void	check_form(t_info *info)
 
 void	ft_mandelbrot(t_info *info)
 {
+	info->mandel->x = 0;
 	while(info->mandel->x != WIDTH)
 	{
+		info->mandel->y = 0;
 		while(info->mandel->y != HEIGHT)
 		{
 			m_scale(info);
 			info->mandel->count = 0; // try without?
 			while (++info->mandel->count != info->mandel->p_iterate &&  
 			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) // dif func try 3
-				square_root_madel(info->mandel); // possibly change the line above to count < MAXCOUNT
+				square_root_mandel(info->mandel); // possibly change the line above to count < MAXCOUNT
 			if (info->mandel->p_iterate == info->mandel->count)
 				all_pixel(info, info->mandel->x, info->mandel->y, 0);
 			else
@@ -86,7 +88,7 @@ void	all_pixel(t_info *info, int x, int y, int pix_color)
 	}
 }
 
-t_man		square_root_mandel(t_man *mandel) // return pointer
+t_man		*square_root_mandel(t_man *mandel) // return pointer
 {
 	mandel->temp = (mandel->imag_x * mandel->imag_x) - (mandel->imag_y * mandel->imag_y);
 	mandel->real_x = mandel->temp;
@@ -94,7 +96,7 @@ t_man		square_root_mandel(t_man *mandel) // return pointer
 	mandel->imag_x = mandel->real_x + mandel->imag_x;
 	mandel->imag_y = mandel->real_y + mandel->imag_y;
 	mandel->temp = 0;
-	return (*mandel);
+	return (mandel);
 
 }
 
@@ -153,8 +155,9 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->imag_y = 0;
 	info->mandel->temp_x = 0;
 	info->mandel->temp_y = 0;
+	info->mandel->color = 0;
 	info->mandel->count = 0;
-	info->mandel->p_iterate = 0;
+	info->mandel->p_iterate = 0; // max
 	info->mandel->real_x = 0;
 	info->mandel->real_y = 0;
 	info->julia->x = 0;
