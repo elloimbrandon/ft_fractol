@@ -16,11 +16,11 @@ int		main(int argc, char **argv)
 		{
 			handle_mlx(info);
 			check_form(info);
-			printf("success!\n"); ///// REMOVE
+			//printf("success!\n"); ///// REMOVE
 			// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
 			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
 			// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
-			// mlx_hook(info->mlx_window, 17, 0, ft_close, info);
+			mlx_hook(info->mlx_window, 17, 0, ft_close, info);
 			mlx_loop(info->mlx);
 		}
 	}
@@ -49,16 +49,18 @@ void	init_struct(t_info *info, int argc)
 	info->julia->y = 0;
 	info->julia->imag_x = 0;
 	info->julia->imag_y = 0;
+	info->julia->color = 25;
 	info->julia->count = 0;
-	info->julia->p_iterate = 0;
+	info->julia->p_iterate = 50;
 	info->julia->real_x = 0;
 	info->julia->real_y = 0;
 	info->burns->x = 0;
 	info->burns->y = 0;
 	info->burns->imag_x = 0;
 	info->burns->imag_y = 0;
+	info->burns->color = 25;
 	info->burns->count = 0;
-	info->burns->p_iterate = 0;
+	info->burns->p_iterate = 50;
 	info->burns->real_x = 0;
 	info->burns->real_y = 0;
 	info->check_m = 0;

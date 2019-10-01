@@ -13,15 +13,15 @@ void	check_form(t_info *info)
 		ft_mandelbrot(info);
 	else if (info->check_j)
     {
-	 	ft_julia(info);
-        info->julia->imag_xy = -.73;
+		info->julia->imag_xy = -.73;
         info->julia->imag_yx = -.19;
+	 	ft_julia(info);
     }
     else if (info->check_b)
     {
-	    ft_burns(info);
-        info->burns->imag_xy = .0;
+		info->burns->imag_xy = .0;
         info->burns->imag_yx = .0;
+	    ft_burns(info);
     }
 	else
 	{

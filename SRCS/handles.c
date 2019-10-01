@@ -42,8 +42,8 @@ void	all_pixel(t_info *info, int x, int y, int pix_color)
 
 // }
 
-// int		ft_close(void *ptr)
-// {
-// 	(void)ptr;
-// 	exit(0);
-// }
+int		ft_close(void *ptr)
+{
+	(void)ptr;
+	exit(0);
+}
