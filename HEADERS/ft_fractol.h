@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/30 21:24:48 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/09/30 21:56:26 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,10 @@ void		ft_mandelbrot(t_info *info);
 void		ft_julia(t_info *info);
 void		ft_burns(t_info *info);
 void		m_scale(t_info *info);
+void		j_scale(t_info *info);
 void		all_pixel(t_info *info, int x, int y, int pix_color);
 t_man		*square_root_mandel(t_man *mandel);
+t_jul		*square_root_julia(t_jul *julia);
 // int			key_management(int key, t_info *info);
 int			mouse_management(int key, int x, int y, t_info *info);
 // int			motion_management(int key, t_info *info);
