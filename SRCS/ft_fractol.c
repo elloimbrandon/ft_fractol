@@ -1,5 +1,4 @@
 #include "../HEADERS/ft_fractol.h"
-#include <stdio.h> ///// REMOVEEEEEEEEEEEE
 // BONUS ----->
 //Two valid parameters in the command line, resulting in two fractals in two windows.
 
@@ -16,11 +15,7 @@ int		main(int argc, char **argv)
 		{
 			handle_mlx(info);
 			check_form(info);
-			//printf("success!\n"); ///// REMOVE
-			// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
-			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
-			// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
-			mlx_hook(info->mlx_window, 17, 0, ft_close, info);
+			//mlx_controls(info); // could move to check form
 			mlx_loop(info->mlx);
 		}
 	}

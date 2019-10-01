@@ -11,26 +11,26 @@ void	handle_mlx(t_info *info)
 
 void	all_pixel(t_info *info, int x, int y, int pix_color)
 {
-	void	*i;
+	void	*ptr;
 	int		c_val;
 
 	if (x < WIDTH && y < HEIGHT)
 	{
-		i = mlx_get_data_addr(info->mlx_image, &(info->bits_per_pix), &(info->size_l), &(info->endian));
+		ptr = mlx_get_data_addr(info->mlx_image, &(info->bits_per_pix), &(info->size_l), &(info->endian));
 		c_val = mlx_get_color_value(info->mlx, pix_color);
-		ft_memcpy(i + 4 * WIDTH * y + x * 4, &c_val, sizeof(int));
+		ft_memcpy(ptr + 4 * WIDTH * y + x * 4, &c_val, sizeof(int));
 	}
 }
 
-// int		mouse_management(int key, int x, int y, t_info *info)
-// {
-// 	if (key == 5)
-// 		info->events->zoom -= (info->events->zoom / 10);
-// 	if (key == 4)
-// 		info->events->zoom += (info->events->zoom / 10);
-// 	check_form(info);
-// 	return (0);
-// }
+int		mouse_management(int key, int x, int y, t_info *info)
+{
+	if (key == 5)
+		info->events->zoom -= (info->events->zoom / 10);
+	if (key == 4)
+		info->events->zoom += (info->events->zoom / 10);
+	check_form(info);
+	return (0);
+}
 
 // int	key_management(int key, t_info *info)
 // {
