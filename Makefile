@@ -1,20 +1,24 @@
-SRCS = ./SRCS/ft_fractol.c 
-
-FLAGS = -Wall -Wextra -Werror
+SRCS = ./SRCS/ft_fractol.c ./SRCS/checks.c ./SRCS/handles.c ./SRCS/scale_root.c ./SRCS/fractols.c
 
 NAME = fractol
 
+FLAGS = -Wall -Werror -Wextra
+
 LIBFT = libft
+
+MINLIB = minilibx_macos
+
+MINILIBX = -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
 $(NAME):
 	@make -C $(LIBFT)
-	@gcc $(FLAGS) $(SRCS) -L $(LIBFT) -lft -o $(NAME)
+	@make -C $(MINLIB)
+	@gcc $(SRCS) $(MINILIBX) -L $(LIBFT) -lft -o $(NAME)
 
 clean:
 	@rm -rf $(NAME)
-	@rm -rf fractol
 	@make clean -C $(LIBFT)
 
 fclean: clean
@@ -23,6 +27,4 @@ fclean: clean
 re: fclean all
 
 debug:
-	@gcc $(FLAGS) $(SRCS) -L $(LIBFT) -lft -o $(NAME) -g -fsanitize=address
-
-
+	@gcc $(SRCS) $(MINILIBX) -L $(LIBFT) -lft -o $(NAME) -g -fsanitize=address

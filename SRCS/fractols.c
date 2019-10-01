@@ -33,7 +33,7 @@ void	ft_julia(t_info *info)
 			j_scale(info);
 			info->julia->count = 0;
 			while (++info->julia->count != info->julia->p_iterate &&  
-				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y <= 4) // 4.0
+				info->julia->old_y * info->julia->old_y + info->julia->old_x * info->julia->old_x <= 4) // 4.0
 				square_root_julia(info->julia);
 			if (info->julia->p_iterate == info->julia->count)
 				all_pixel(info, info->julia->x, info->julia->y, 0);
@@ -46,7 +46,25 @@ void	ft_julia(t_info *info)
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 }
 
-// void	ft_burns(t_info *info)
-// {
-
-// }
+void	ft_burns(t_info *info)
+{
+    while(info->burns->x != WIDTH)
+	{
+		info->burns->y = 0;
+		while(info->burns->y != HEIGHT)
+		{
+			b_scale(info);
+			info->burns->count = 0;
+			while (++info->burns->count != info->burns->p_iterate &&  
+				info->burns->imag_x * info->burns->imag_x + info->burns->imag_y * info->burns->imag_y <= 4) // 4.0
+				square_root_burns(info->burns);
+			if (info->burns->p_iterate == info->burns->count)
+				all_pixel(info, info->burns->x, info->burns->y, 0);
+			else
+				all_pixel(info, info->burns->x, info->burns->y, info->burns->count * info->mandel->color);
+			info->burns->y++;
+		}
+		info->burns->x++;
+	}
+	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
+}

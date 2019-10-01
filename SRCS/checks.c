@@ -13,8 +13,8 @@ void	check_form(t_info *info)
 		ft_mandelbrot(info); //function for mandelbrot
 	else if (info->check_j)
 	 	ft_julia(info); //function for julia
-    // else if (info->check_b)
-	//	ft_burns(info); //funciton for burns
+    else if (info->check_b)
+	    ft_burns(info); //funciton for burns
 	else
 	{
 		ft_putendl("Error");

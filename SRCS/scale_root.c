@@ -21,6 +21,17 @@ void		j_scale(t_info *info)
 	// info->julia->count = 0;
 }
 
+void        b_scale(t_info *info)
+{
+    info->burns->imag_x = ((double)(info->burns->x - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->x_offset);
+	info->burns->imag_y = ((double)(info->burns->y - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->y_offset);
+    // info->burns->old_x = info->burns->imag_xy;
+	// info->burns->old_y = info->burns->imag_yx;
+	// info->burns->count = 0;
+}
+
 t_man		*square_root_mandel(t_man *mandel)
 {
 	mandel->temp = (mandel->imag_x * mandel->imag_x) - (mandel->imag_y * mandel->imag_y);
@@ -39,4 +50,13 @@ t_jul		*square_root_julia(t_jul *julia)
 	julia->real_x = (julia->imag_x * julia->imag_x) - (julia->imag_y * julia->imag_y);
 	julia->real_y = 2 * julia->imag_x * julia->imag_y;
 	return (julia);
+}
+
+t_bur       *square_root_burns(t_bur *burns)
+{
+    burns->old_x = burns->real_x;
+    burns->real_x = burns->real_x * burns->real_x - burns->real_y * burns->real_y + burns->imag_x;
+    burns->real_y = 2 * fabs(burns->real_y * burns->old_x) + burns->imag_y;
+    burns->count += 1;
+    return(burns);
 }
