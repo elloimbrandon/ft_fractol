@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/25 17:22:12 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/09/30 19:57:23 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 ** Macros
 */
 
-# define HEIGHT 700
-# define WIDTH 700
+# define HEIGHT 800
+# define WIDTH 800
 
 /*
 ** Structs
@@ -61,13 +61,13 @@ typedef struct		s_burns
 
 typedef struct		s_mandel
 {
-	int				x;
-	int				y;
+	double			x;
+	double			y;
+	double			temp_x;
+	double			temp_y;
+	double			imag_x;
+	double			imag_y;
 	double			temp;
-	int				temp_x;
-	int				temp_y;
-	int				imag_x;
-	int				imag_y;
 	int				color;
 	int				count;
 	int				p_iterate;
@@ -119,7 +119,7 @@ void		m_scale(t_info *info);
 void		all_pixel(t_info *info, int x, int y, int pix_color);
 t_man		*square_root_mandel(t_man *mandel);
 // int			key_management(int key, t_info *info);
-// int			mouse_management(int key,t_info *info);
+int			mouse_management(int key, int x, int y, t_info *info);
 // int			motion_management(int key, t_info *info);
 // int			ft_close(void *ptr);
 

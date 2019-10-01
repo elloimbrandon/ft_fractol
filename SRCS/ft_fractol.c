@@ -5,10 +5,8 @@
 
 int		main(int argc, char **argv)
 {
-	int i;
 	t_info *info;
 
-	i = 0;
 	info = (t_info*)ft_memalloc(sizeof(t_info));
 	if (argc == 2)
 	{
@@ -19,8 +17,8 @@ int		main(int argc, char **argv)
 			handle_mlx(info);
 			check_form(info);
 			printf("success!\n"); ///// REMOVE
-			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
 			// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
+			// mlx_hook(info->mlx_window, 2, 0, key_management, info);
 			// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
 			// mlx_hook(info->mlx_window, 17, 0, ft_close, info);
 			mlx_loop(info->mlx);
@@ -38,6 +36,7 @@ int		main(int argc, char **argv)
 
 void	check_form(t_info *info)
 {
+	mlx_clear_window(info->mlx, info->mlx_window);
 	if (info->check_m)
 		ft_mandelbrot(info); //function for mandelbrot
 	//if (info->check_j)
@@ -52,19 +51,31 @@ void	check_form(t_info *info)
 	
 }
 
+void	all_pixel(t_info *info, int x, int y, int pix_color)
+{
+	void	*i;
+	int		c_val;
+
+	if (x < WIDTH && y < HEIGHT)
+	{
+		i = mlx_get_data_addr(info->mlx_image, &(info->bits_per_pix), &(info->size_l), &(info->endian));
+		c_val = mlx_get_color_value(info->mlx, pix_color);
+		ft_memcpy(i + 4 * WIDTH * y + x * 4, &c_val, sizeof(int));
+	}
+}
+
 void	ft_mandelbrot(t_info *info)
 {
-	info->mandel->x = 0;
 	while(info->mandel->x != WIDTH)
 	{
 		info->mandel->y = 0;
 		while(info->mandel->y != HEIGHT)
 		{
 			m_scale(info);
-			info->mandel->count = 0; // try without?
+			info->mandel->count = 0;
 			while (++info->mandel->count != info->mandel->p_iterate &&  
-			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) // dif func try 3
-				square_root_mandel(info->mandel); // possibly change the line above to count < MAXCOUNT
+			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3)) // 3.0
+				square_root_mandel(info->mandel);
 			if (info->mandel->p_iterate == info->mandel->count)
 				all_pixel(info, info->mandel->x, info->mandel->y, 0);
 			else
@@ -75,20 +86,8 @@ void	ft_mandelbrot(t_info *info)
 	}
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 }
-void	all_pixel(t_info *info, int x, int y, int pix_color)
-{
-	void	*i;
-	int		hex;
 
-	if (x < WIDTH && y < HEIGHT)
-	{
-		i = mlx_get_data_addr(info->mlx_image, &(info->bits_per_pix), &(info->size_l), &(info->endian));
-		hex = mlx_get_color_value(info->mlx, pix_color);
-		ft_memcpy(i + 4 * WIDTH * y + x * 4, &hex, sizeof(int));
-	}
-}
-
-t_man		*square_root_mandel(t_man *mandel) // return pointer
+t_man		*square_root_mandel(t_man *mandel)
 {
 	mandel->temp = (mandel->imag_x * mandel->imag_x) - (mandel->imag_y * mandel->imag_y);
 	mandel->real_x = mandel->temp;
@@ -97,7 +96,6 @@ t_man		*square_root_mandel(t_man *mandel) // return pointer
 	mandel->imag_y = mandel->real_y + mandel->imag_y;
 	mandel->temp = 0;
 	return (mandel);
-
 }
 
 void		m_scale(t_info *info)
@@ -155,9 +153,10 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->imag_y = 0;
 	info->mandel->temp_x = 0;
 	info->mandel->temp_y = 0;
-	info->mandel->color = 0;
+	info->mandel->temp = 0;
+	info->mandel->color = 25;
 	info->mandel->count = 0;
-	info->mandel->p_iterate = 0; // max
+	info->mandel->p_iterate = 50;
 	info->mandel->real_x = 0;
 	info->mandel->real_y = 0;
 	info->julia->x = 0;
@@ -183,7 +182,7 @@ void	init_struct(t_info *info, int argc)
 	info->check_m = 0;
 	info->check_j = 0;
 	info->check_b = 0;
-	info->events->zoom = 0;
+	info->events->zoom = 1;
 	info->events->x_offset = 0;
 	info->events->y_offset = 0;
 }
@@ -210,9 +209,14 @@ void	error_management(int argc, t_info *info)
 	}
 }
 
-// int	mouse_management(int key, t_info *info)
+// int		mouse_management(int key, int x, int y, t_info *info)
 // {
-
+// 	if (key == 5)
+// 		info->events->zoom -= (info->events->zoom / 10);
+// 	if (key == 4)
+// 		info->events->zoom += (info->events->zoom / 10);
+// 	check_form(info);
+// 	return (0);
 // }
 
 // int	key_management(int key, t_info *info)
