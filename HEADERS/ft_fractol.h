@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/09/30 19:57:23 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/09/30 21:24:48 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@
 
 typedef struct		t_julia
 {
-	int				x;
-	int				y;
-	int				imag_x;
-	int				imag_y;
-	int				temp_x;
-	int				temp_y;
+	double			x;
+	double			y;
+	double			old_x;
+	double			old_y;
+	double			imag_x;
+	double			imag_y;
+	double			imag_xy;
+	double			imag_yx;
 	int				count;
 	int				p_iterate;
 	double			real_x;
@@ -47,12 +49,12 @@ typedef struct		t_julia
 
 typedef struct		s_burns
 {
-	int				x;
-	int				y;
-	int				imag_x;
-	int				imag_y;
-	int				temp_x;
-	int				temp_y;
+	double			x;
+	double			y;
+	double			old_x;
+	double			old_y;
+	double			imag_x;
+	double			imag_y;
 	int				count;
 	int				p_iterate;
 	double			real_x;
@@ -63,8 +65,8 @@ typedef struct		s_mandel
 {
 	double			x;
 	double			y;
-	double			temp_x;
-	double			temp_y;
+	double			old_x;
+	double			old_y;
 	double			imag_x;
 	double			imag_y;
 	double			temp;

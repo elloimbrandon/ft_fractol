@@ -51,6 +51,71 @@ void	check_form(t_info *info)
 	
 }
 
+void	ft_julia(t_info *info)
+{
+	while(info->julia->x != WIDTH)
+	{
+		info->julia->y = 0;
+		while(info->julia->y != HEIGHT)
+		{
+			j_scale(info);
+			info->julia->count = 0;
+			while (++info->julia->count != info->julia->p_iterate &&  
+				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y <= 4) // 4.0
+				square_root_julia(info->julia);
+			if (info->julia->p_iterate == info->julia->count)
+				all_pixel(info, info->julia->x, info->julia->y, 0);
+			else
+				all_pixel(info, info->julia->x, info->julia->y, info->julia->count * info->mandel->color);
+			info->julia->y++;
+		}
+		info->julia->x++;
+	}
+	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
+}
+
+void		j_scale(t_info *info)
+{
+	info->julia->imag_x = ((double)(info->julia->x - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->x_offset);
+	info->julia->imag_y = ((double)(info->julia->y - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->y_offset);
+	// info->julia->old_x = info->julia->imag_xy;
+	// info->julia->old_y = info->julia->imag_yx;
+	//info->julia->count = 0;
+	
+}
+
+t_jul		*sqaure_root_julia(t_jul *julia)
+{	
+	julia->imag_x = julia->real_x + julia->old_x;
+	julia->imag_y = julia->real_y + julia->old_y;
+	julia->real_x = (julia->imag_x * julia->imag_x) - (julia->imag_y * julia->imag_y);
+	julia->real_y = 2 * julia->imag_x * julia->imag_y;
+	return (julia);
+}
+
+void		m_scale(t_info *info)
+{
+	info->mandel->imag_x = ((double)(info->mandel->x - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->x_offset);
+	info->mandel->imag_y = ((double)(info->mandel->y - (WIDTH / 2)) /
+		(double)(WIDTH / 4) * info->events->zoom + info->events->y_offset);
+	info->mandel->old_x = info->mandel->imag_x;
+	info->mandel->old_y = info->mandel->imag_y;
+}
+
+t_man		*square_root_mandel(t_man *mandel)
+{
+	mandel->temp = (mandel->imag_x * mandel->imag_x) - (mandel->imag_y * mandel->imag_y);
+	mandel->real_x = mandel->temp;
+	mandel->real_y = 2 * mandel->imag_x * mandel->imag_y;
+	mandel->imag_x = mandel->real_x + mandel->old_x;
+	mandel->imag_y = mandel->real_y + mandel->old_y;
+	mandel->temp = 0;
+	return (mandel);
+}
+
 void	all_pixel(t_info *info, int x, int y, int pix_color)
 {
 	void	*i;
@@ -86,33 +151,6 @@ void	ft_mandelbrot(t_info *info)
 	}
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 }
-
-t_man		*square_root_mandel(t_man *mandel)
-{
-	mandel->temp = (mandel->imag_x * mandel->imag_x) - (mandel->imag_y * mandel->imag_y);
-	mandel->real_x = mandel->temp;
-	mandel->real_y = 2 * mandel->imag_x * mandel->imag_y;
-	mandel->imag_x = mandel->real_x + mandel->imag_x;
-	mandel->imag_y = mandel->real_y + mandel->imag_y;
-	mandel->temp = 0;
-	return (mandel);
-}
-
-void		m_scale(t_info *info)
-{
-	info->mandel->imag_x = ((double)(info->mandel->x - (WIDTH / 2)) /
-		(double)(WIDTH / 4) * info->events->zoom + info->events->x_offset);
-	info->mandel->imag_y = ((double)(info->mandel->y - (WIDTH / 2)) /
-		(double)(WIDTH / 4) * info->events->zoom + info->events->y_offset);
-	info->mandel->temp_x = info->mandel->imag_x;
-	info->mandel->temp_y = info->mandel->imag_y;
-}
-
-
-// void	ft_julia(t_info *info)
-// {
-
-// }
 
 // void	ft_burns(t_info *info)
 // {
@@ -151,8 +189,6 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->y = 0;
 	info->mandel->imag_x = 0;
 	info->mandel->imag_y = 0;
-	info->mandel->temp_x = 0;
-	info->mandel->temp_y = 0;
 	info->mandel->temp = 0;
 	info->mandel->color = 25;
 	info->mandel->count = 0;
@@ -163,8 +199,6 @@ void	init_struct(t_info *info, int argc)
 	info->julia->y = 0;
 	info->julia->imag_x = 0;
 	info->julia->imag_y = 0;
-	info->julia->temp_x = 0;
-	info->julia->temp_y = 0;
 	info->julia->count = 0;
 	info->julia->p_iterate = 0;
 	info->julia->real_x = 0;
@@ -173,8 +207,6 @@ void	init_struct(t_info *info, int argc)
 	info->burns->y = 0;
 	info->burns->imag_x = 0;
 	info->burns->imag_y = 0;
-	info->burns->temp_x = 0;
-	info->burns->temp_y = 0;
 	info->burns->count = 0;
 	info->burns->p_iterate = 0;
 	info->burns->real_x = 0;
