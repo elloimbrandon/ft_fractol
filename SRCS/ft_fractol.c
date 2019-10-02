@@ -14,8 +14,8 @@ int		main(int argc, char **argv)
 		if (info->check_j || info->check_m || info->check_b)
 		{
 			handle_mlx(info);
-			check_form(info);
-			//mlx_controls(info); // could move to check form
+			check_fractal(info);
+			mlx_controls(info); // could move to check form
 			mlx_loop(info->mlx);
 		}
 	}
@@ -44,6 +44,8 @@ void	init_struct(t_info *info, int argc)
 	info->julia->y = 0;
 	info->julia->imag_x = 0;
 	info->julia->imag_y = 0;
+	info->julia->imag_xy = -.73;
+    info->julia->imag_yx = -.19;
 	info->julia->color = 25;
 	info->julia->count = 0;
 	info->julia->p_iterate = 50;
@@ -53,6 +55,8 @@ void	init_struct(t_info *info, int argc)
 	info->burns->y = 0;
 	info->burns->imag_x = 0;
 	info->burns->imag_y = 0;
+	info->burns->imag_xy = .0;
+    info->burns->imag_yx = .0;
 	info->burns->color = 25;
 	info->burns->count = 0;
 	info->burns->p_iterate = 50;
