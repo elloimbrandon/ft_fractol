@@ -39,23 +39,23 @@ void	mlx_controls(t_info *info)
 {
 	cotrol_window(info);
 	// mlx_hook(info->mlx_window, 2, 0, key_management, info);
-	// mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
+	mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
 	// mlx_hook(info->mlx_window, 6, 0, motion_management, info);
 	mlx_hook(info->mlx_window, 17, 0, ft_close, info);
 }
 
 void	control_window(t_info *info)
 {
-	mlx_string_put(e->mlx, e->window, 0,
+	mlx_string_put(info->mlx, info->mlx_window, 0,
 		0, 0xFFFFFF, "Move (< ^ v >)");
-	mlx_string_put(e->mlx, e->window, 0,
+	mlx_string_put(info->mlx, info->mlx_window, 0,
 		20, 0xFFFFFF, "Zoom ([1] IN) ([2] OUT");
-	mlx_string_put(e->mlx, e->window, 0,
+	mlx_string_put(info->mlx, info->mlx_window, 0,
 		40, 0xFFFFFF, "Iterate ([+] UP) ([-] DOWN)");
-	mlx_string_put(e->mlx, e->window, 0,
+	mlx_string_put(info->mlx, info->mlx_window, 0,
 		60, 0xFFFFFF, "Color (c)"); // only one.
-	mlx_string_put(e->mlx, e->window, 0,
-		80, 0xFFFFFF, "Exit (esc)");
+	mlx_string_put(info->mlx, info->mlx_window, 0,
+		80, 0xFFFFFF, "Exit (esc) or *red thingy top left of window*");
 }
 void	arg_check(char	*str, t_info *info)
 {
