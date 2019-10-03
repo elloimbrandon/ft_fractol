@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/10/01 19:30:50 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/10/02 20:19:38 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct		t_julia
 	double			imag_yx;
 	int				color;
 	int				count;
-	int				p_iterate;
+	int				iterate_max;
 	double			real_x;
 	double			real_y;
 }					t_jul;
@@ -60,7 +60,7 @@ typedef struct		s_burns
 	double			imag_yx;
 	int				color;
 	int				count;
-	int				p_iterate;
+	int				iterate_max;
 	double			real_x;
 	double			real_y;
 }					t_bur;
@@ -76,7 +76,7 @@ typedef struct		s_mandel
 	double			temp;
 	int				color;
 	int				count;
-	int				p_iterate;
+	int				iterate_max;
 	double			real_x;
 	double			real_y;
 }					t_man;
@@ -93,7 +93,7 @@ typedef	struct		s_info
 {
 	t_jul			*julia;
 	t_man 			*mandel;
-	t_bur			*burns;
+	t_bur			*burn_s;
 	t_evn 			*events;
 	void			*mlx;
 	void			*mlx_image;
@@ -105,7 +105,7 @@ typedef	struct		s_info
 	int				bits_per_pix;
 	int				size_l;
 	int				endian;
-	int				p_iterate;
+	int				iterate_max;
 	int				arg;
 }					t_info;
 
@@ -123,20 +123,20 @@ void		control_window(t_info *info);
 void		error_management(int arg, t_info *info);
 void		ft_mandelbrot(t_info *info);
 void		ft_julia(t_info *info);
-void		ft_burns(t_info *info);
+void		ft_burn_s(t_info *info);
 void		m_scale(t_info *info);
 void		j_scale(t_info *info);
 void        b_scale(t_info *info);
 void		all_pixel(t_info *info, int x, int y, int pix_color);
 t_man		square_root_mandel(t_man *mandel);
 t_jul		square_root_julia(t_jul *julia);
-t_bur       square_root_burns(t_bur *burns);
+t_bur       square_root_burn_s(t_bur *burns);
 int			key_management(int key, t_info *info);
 int			mouse_management(int key, int x, int y, t_info *info);
 int			motion_management(int x, int y, t_info *info);
 int			motion_j(int x, int y, t_info *info);
 int			key_iteration(int key, t_info *info);
-int			key_color(int key, t_info *info);
+t_info		*key_color(int key, t_info *info);
 int			key_zoom_move(int key, t_info *info);
 int			ft_close(void *ptr);
 

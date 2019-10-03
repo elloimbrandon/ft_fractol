@@ -1,7 +1,8 @@
 #include "../HEADERS/ft_fractol.h"
 
 void	ft_mandelbrot(t_info *info)
-{
+{	
+	info->mandel->x = 0;
 	while(info->mandel->x != WIDTH)
 	{
 		info->mandel->y = 0;
@@ -9,10 +10,10 @@ void	ft_mandelbrot(t_info *info)
 		{
 			m_scale(info);
 			info->mandel->count = 0;
-			while (++info->mandel->count != info->mandel->p_iterate &&  
-			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3)) // 3.0
+			while (++info->mandel->count != info->mandel->iterate_max &&  
+			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3)) // 3.0 <
 				square_root_mandel(info->mandel);
-			if (info->mandel->p_iterate == info->mandel->count)
+			if (info->mandel->iterate_max == info->mandel->count)
 				all_pixel(info, info->mandel->x, info->mandel->y, 0);
 			else
 				all_pixel(info, info->mandel->x, info->mandel->y, info->mandel->count * info->mandel->color);
@@ -25,6 +26,7 @@ void	ft_mandelbrot(t_info *info)
 
 void	ft_julia(t_info *info)
 {
+	info->julia->x = 0;
 	while(info->julia->x != WIDTH)
 	{
 		info->julia->y = 0;
@@ -32,10 +34,10 @@ void	ft_julia(t_info *info)
 		{
 			j_scale(info);
 			info->julia->count = 0;
-			while (++info->julia->count != info->julia->p_iterate &&  
-				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y < 4) // 4.0
+			while (++info->julia->count != info->julia->iterate_max &&  
+				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y < 4) // 4.0 <=
 				square_root_julia(info->julia);
-			if (info->julia->p_iterate == info->julia->count)
+			if (info->julia->iterate_max == info->julia->count)
 				all_pixel(info, info->julia->x, info->julia->y, 0);
 			else
 				all_pixel(info, info->julia->x, info->julia->y, info->julia->count * info->julia->color);
@@ -46,25 +48,26 @@ void	ft_julia(t_info *info)
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 }
 
-void	ft_burns(t_info *info)
+void	ft_burn_s(t_info *info)
 {
-    while(info->burns->x != WIDTH)
+	info->burn_s->x = 0;
+    while(info->burn_s->x != WIDTH)
 	{
-		info->burns->y = 0;
-		while(info->burns->y != HEIGHT)
+		info->burn_s->y = 0;
+		while(info->burn_s->y != HEIGHT)
 		{
 			b_scale(info);
-			info->burns->count = 0;
-			while (info->burns->count != info->burns->p_iterate &&  
-				info->burns->real_x * info->burns->real_x + info->burns->real_y * info->burns->real_y < 4) // 4.0
-				square_root_burns(info->burns);
-			if (info->burns->p_iterate == info->burns->count)
-				all_pixel(info, info->burns->x, info->burns->y, 0);
+			info->burn_s->count = 0;
+			while (info->burn_s->count != info->burn_s->iterate_max &&  
+				info->burn_s->real_x * info->burn_s->real_x + info->burn_s->real_y * info->burn_s->real_y < 4) // 4.0 <=
+				square_root_burn_s(info->burn_s);
+			if (info->burn_s->iterate_max == info->burn_s->count)
+				all_pixel(info, info->burn_s->x, info->burn_s->y, 0);
 			else
-				all_pixel(info, info->burns->x, info->burns->y, info->burns->count * info->burns->color);
-			info->burns->y++;
+				all_pixel(info, info->burn_s->x, info->burn_s->y, info->burn_s->count * info->burn_s->color);
+			info->burn_s->y++;
 		}
-		info->burns->x++;
+		info->burn_s->x++;
 	}
 	mlx_put_image_to_window(info->mlx, info->mlx_window, info->mlx_image, 0, 0);
 }

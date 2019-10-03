@@ -7,72 +7,36 @@ int		check_fractal(t_info *info)
 	{
 		ft_mandelbrot(info);
 		control_window(info);
-		//mlx_controls(info);
 	}
-	else if (info->check_j)
+	if (info->check_j)
     {
-		// info->julia->imag_xy = -.73;
-        // info->julia->imag_yx = -.19;
 	 	ft_julia(info);
 		control_window(info);
-		//mlx_controls(info);
     }
-    else if (info->check_b)
+    if (info->check_b)
     {
-		// info->burns->imag_xy = .0;
-        // info->burns->imag_yx = .0;
-	    ft_burns(info);
+	    ft_burn_s(info);
 		control_window(info);
-		//mlx_controls(info);
     }
 	return(0);
 }
-// int		fractal_recheck(t_info *info)
-// {
-// 	//mlx_clear_window(info->mlx, info->mlx_window);
-// 	if (info->check_m)
-// 	{
-// 		ft_mandelbrot(info);
-// 		mlx_controls(info);
-// 	}
-// 	else if (info->check_j)
-// 	{
-// 	 	ft_julia(info);
-// 		mlx_controls(info);
-// 	}
-//     else if (info->check_b)
-// 	{
-// 	    ft_burns(info);
-// 		mlx_controls(info);
-// 	}
-// 	else
-// 	{
-// 		ft_putendl("Usage: .. Error");
-// 		exit(1);
-// 	}
-// 	return(0);
-// }
+
 int		mlx_controls(t_info *info)
 {
-	//control_window(info);
+	check_fractal(info);
 	mlx_hook(info->mlx_window, 2, 0, key_management, info);
 	mlx_hook(info->mlx_window, 4, 0, mouse_management, info);
 	mlx_hook(info->mlx_window, 6, 0, motion_management, info);
 	mlx_hook(info->mlx_window, 17, 0, ft_close, info);
-	mlx_loop(info->mlx);
 	return(0);
 }
-
+#include <stdio.h> ///////////REMOVE
 int		key_management(int key, t_info *info)
 {
-	if(key == 52)
-		exit(1);
-	key_color(key, info);
+	info = key_color(key, info);
 	key_iteration(key, info);
 	key_zoom_move(key, info);
-	//mlx_clear_window(info->mlx, info->mlx_window);
 	check_fractal(info);
-	// fractal_recheck(info);
 	return(0);
 }
 
@@ -100,44 +64,50 @@ int		key_iteration(int key, t_info *info)
 	if (info->check_m)
 	{
 		if (key == 24)
-			info->mandel->p_iterate += 20;
-		if (key == 27 && info->mandel->p_iterate >= 20) // maybe no =
-			info->mandel->p_iterate -= 20;
+			info->mandel->iterate_max += 20;
+		if (key == 27 && info->mandel->iterate_max >= 20)
+			info->mandel->iterate_max -= 20;
 	}
 	else if (info->check_j)
 	{
 		if (key == 24)
-			info->julia->p_iterate += 20;
-		if (key == 27 && info->julia->p_iterate >= 20) // maybe no =
-			info->julia->p_iterate -= 20;
+			info->julia->iterate_max += 20;
+		if (key == 27 && info->julia->iterate_max >= 20)
+			info->julia->iterate_max -= 20;
 	}
 	else if (info->check_b)
 	{
 		if (key == 24)
-			info->burns->p_iterate += 20;
-		if (key == 27 && info->burns->p_iterate >= 20) // maybe no =
-			info->burns->p_iterate -= 20;
+			info->burn_s->iterate_max += 20;
+		if (key == 27 && info->burn_s->iterate_max >= 20)
+			info->burn_s->iterate_max -= 20;
 	}
 	return(0);
 }
-int		key_color(int key, t_info *info)
+t_info		*key_color(int key, t_info *info)
 {
-	if (info->check_m)
+	if(key == 53)
+		exit(1);
+	if (info->check_m && key == 8)
 	{
 		if (key == 8 && info->mandel->color <= 99999999)
+		{
+			// printf("color before : %d\n", info->mandel->color);
 			info->mandel->color *= 2;
+			// printf("color after: %d\n", info->mandel->color);
+		}
 	}
-	else if (info->check_j)
+	if (info->check_j)
 	{
 		if (key == 8 && info->julia->color <= 99999999)
 			info->julia->color *= 2;
 	}
-	else if (info->check_b)
+	if (info->check_b)
 	{
-		if (key == 8 && info->burns->color <= 99999999)
-			info->burns->color *= 2;
+		if (key == 8 && info->burn_s->color <= 99999999)
+			info->burn_s->color *= 2;
 	}
-	return(0);
+	return(info);
 }
 
 int		motion_management(int x, int y, t_info *info)
@@ -146,8 +116,6 @@ int		motion_management(int x, int y, t_info *info)
 	{
 		if (info->check_j)
 			motion_j(x,y,info);
-		// mlx_clear_window(info->mlx, info->mlx_window);
-		// fractal_recheck(info);
 		check_fractal(info);
 	}
 	return (0);
@@ -173,7 +141,7 @@ void	control_window(t_info *info)
 	mlx_string_put(info->mlx, info->mlx_window, 0,
 		40, 0x00FF00, "Iterate [+] UP [-] DOWN");
 	mlx_string_put(info->mlx, info->mlx_window, 0,
-		60, 0x00FF00, "Color [c]"); // only one.
+		60, 0x00FF00, "Color [c]");
 	mlx_string_put(info->mlx, info->mlx_window, 0,
 		80, 0x00FF00, "Exit [esc] or *red thingy top left of window*");
 }
@@ -183,7 +151,7 @@ void	arg_check(char	*str, t_info *info)
 		info->check_m = 1;
 	else if (ft_strcmp(str, "julia") == 0)
 		info->check_j = 1;
-	else if (ft_strcmp(str, "burns") == 0)
+	else if (ft_strcmp(str, "burn_s") == 0)
 		info->check_b = 1;
 	else
 		error_management(info->arg, info);
@@ -193,7 +161,7 @@ void	error_management(int argc, t_info *info)
 {
 	if (argc < 2)
 	{
-		ft_putendl("Usage: Not enough arguments...ex [mandel, julia, burns]");
+		ft_putendl("Usage: Not enough arguments...ex [mandel, julia, burn_s]");
 		free(info);
 		exit(1);
 	}
@@ -205,7 +173,7 @@ void	error_management(int argc, t_info *info)
 	}
 	if (!(info->check_m && info->check_j && info->check_b))
 	{
-		ft_putendl("Usage: Wrong Argument..ex [mandel, julia, burns]");
+		ft_putendl("Usage: Wrong Argument..ex [mandel, julia, burn_s]");
 		free(info);
 		exit(1);
 	}

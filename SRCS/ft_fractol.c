@@ -1,6 +1,4 @@
 #include "../HEADERS/ft_fractol.h"
-// BONUS ----->
-//Two valid parameters in the command line, resulting in two fractals in two windows.
 
 int		main(int argc, char **argv)
 {
@@ -14,8 +12,8 @@ int		main(int argc, char **argv)
 		if (info->check_j || info->check_m || info->check_b)
 		{
 			handle_mlx(info);
-			check_fractal(info);
-			mlx_controls(info); // could move to check form
+			// check_fractal(info); 
+			mlx_controls(info);
 			mlx_loop(info->mlx);
 		}
 	}
@@ -27,7 +25,7 @@ void	init_struct(t_info *info, int argc)
 {
 	info->mandel = (t_man*)ft_memalloc(sizeof(t_man));
 	info->julia = (t_jul*)ft_memalloc(sizeof(t_jul));
-	info->burns = (t_bur*)ft_memalloc(sizeof(t_bur));
+	info->burn_s = (t_bur*)ft_memalloc(sizeof(t_bur));
 	info->events = (t_evn*)ft_memalloc(sizeof(t_evn));
 	info->arg = argc;
 	info->mandel->x = 0;
@@ -35,9 +33,9 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->imag_x = 0;
 	info->mandel->imag_y = 0;
 	info->mandel->temp = 0;
-	info->mandel->color = 25;
-	info->mandel->count = 0;
-	info->mandel->p_iterate = 50;
+	info->mandel->color = 2051;
+	info->mandel->count = 1;
+	info->mandel->iterate_max = 50;
 	info->mandel->real_x = 0;
 	info->mandel->real_y = 0;
 	info->julia->x = 0;
@@ -46,22 +44,22 @@ void	init_struct(t_info *info, int argc)
 	info->julia->imag_y = 0;
 	info->julia->imag_xy = -.73;
     info->julia->imag_yx = -.19;
-	info->julia->color = 25;
-	info->julia->count = 0;
-	info->julia->p_iterate = 50;
+	info->julia->color = 2051;
+	info->julia->count = 1;
+	info->julia->iterate_max = 50;
 	info->julia->real_x = 0;
 	info->julia->real_y = 0;
-	info->burns->x = 0;
-	info->burns->y = 0;
-	info->burns->imag_x = 0;
-	info->burns->imag_y = 0;
-	info->burns->imag_xy = .0;
-    info->burns->imag_yx = .0;
-	info->burns->color = 25;
-	info->burns->count = 0;
-	info->burns->p_iterate = 50;
-	info->burns->real_x = 0;
-	info->burns->real_y = 0;
+	info->burn_s->x = 0;
+	info->burn_s->y = 0;
+	info->burn_s->imag_x = 0;
+	info->burn_s->imag_y = 0;
+	info->burn_s->imag_xy = .0;
+    info->burn_s->imag_yx = .0;
+	info->burn_s->color = 2051;
+	info->burn_s->count = 1;
+	info->burn_s->iterate_max = 50;
+	info->burn_s->real_x = 0;
+	info->burn_s->real_y = 0;
 	info->check_m = 0;
 	info->check_j = 0;
 	info->check_b = 0;
