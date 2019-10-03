@@ -1,17 +1,16 @@
 #include "../HEADERS/ft_fractol.h"
 
-int		handle_mlx(t_info *info)
+void		handle_mlx(t_info *info)
 {
 	info->mlx = mlx_init();
 	info->mlx_window = mlx_new_window(info->mlx, WIDTH, HEIGHT, "fractol");
 	info->mlx_image = mlx_new_image(info->mlx, WIDTH, HEIGHT);
-	return(0);
 }
 
 void	all_pixel(t_info *info, int x, int y, int pix_color)
 {
 	void	*ptr;
-	int		c_val; // *color code*
+	int		c_val;
 
 	if (x < WIDTH && y < HEIGHT)
 	{
@@ -36,28 +35,3 @@ int		ft_close(void *ptr)
 	(void)ptr;
 	exit(0);
 }
-// int		fractal_recheck(t_info *info)
-// {
-// 	//mlx_clear_window(info->mlx, info->mlx_window);
-// 	if (info->check_m)
-// 	{
-// 		ft_mandelbrot(info);
-// 		mlx_controls(info);
-// 	}
-// 	if (info->check_j)
-// 	{
-// 	 	ft_julia(info);
-// 		mlx_controls(info);
-// 	}
-//     if (info->check_b)
-// 	{
-// 	    ft_burn_s(info);
-// 		mlx_controls(info);
-// 	}
-// 	else
-// 	{
-// 		ft_putendl("Usage: .. Error");
-// 		exit(1);
-// 	}
-// 	return(0);
-// }

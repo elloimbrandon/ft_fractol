@@ -32,7 +32,10 @@ int		mlx_controls(t_info *info)
 }
 int		key_management(int key, t_info *info)
 {
-	info = key_color(key, info);
+	if(key == 53)
+		exit(1);
+	info = key_color_up(key, info);
+	info = key_color_down(key,info);
 	info = key_iteration(key, info);
 	info = key_zoom_move(key, info);
 	check_fractal(info);
@@ -89,10 +92,28 @@ t_info		*key_iteration(int key, t_info *info)
 	}
 	return(info);
 }
-t_info		*key_color(int key, t_info *info)
+t_info		*key_color_down(int key, t_info *info)
 {
-	if(key == 53)
-		exit(1);
+	if (info->check_m && key == 9)
+	{
+		if (info->mandel->color > 2051)
+			info->mandel->color /= 2;
+	}
+	if (info->check_j && key == 9)
+	{
+		if (info->julia->color > 2051)
+			info->julia->color /= 2;
+	}
+	if (info->check_b && key == 9)
+	{
+		if (info->burn_s->color > 2051)
+			info->burn_s->color /= 2;
+	}
+	return(info);
+}
+
+t_info		*key_color_up(int key, t_info *info)
+{
 	if (info->check_m && key == 8)
 	{
 		if (info->mandel->color < 90000000)

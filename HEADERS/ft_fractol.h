@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/10/02 22:04:16 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/10/02 22:10:50 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ typedef	struct		s_info
 void		init_struct(t_info *info, int argc);
 void		arg_check(char	*str, t_info *info);
 int			check_fractal(t_info *info);
-// int			fractal_recheck(t_info *info);
-int			handle_mlx(t_info *info);
+void		handle_mlx(t_info *info);
 int			mlx_controls(t_info *info);
 void		control_window(t_info *info);
 void		error_management(int arg, t_info *info);
@@ -137,7 +136,8 @@ int			mouse_management(int key, int x, int y, t_info *info);
 int			motion_management(int x, int y, t_info *info);
 t_info		*motion_j(int x, int y, t_info *info);
 t_info		*key_iteration(int key, t_info *info);
-t_info		*key_color(int key, t_info *info);
+t_info		*key_color_up(int key, t_info *info);
+t_info		*key_color_down(int key, t_info *info);
 t_info		*key_zoom_move(int key, t_info *info);
 int			ft_close(void *ptr);
 
