@@ -34,6 +34,8 @@ int		key_management(int key, t_info *info)
 {
 	if(key == 53)
 		exit(1);
+	if(key == 38)
+		info->julia_tick = 1;
 	info = key_color_up(key, info);
 	info = key_color_down(key,info);
 	info = key_iteration(key, info);
@@ -49,15 +51,15 @@ t_info		*key_zoom_move(int key, t_info *info)
 	z = info->events->zoom;
 	if (key == 19)
 		info->events->zoom -= (z / 10);
-	if (key == 18)
+	else if (key == 18)
 		info->events->zoom += (z / 10);
-	if (key == 125)
+	else if (key == 125)
 		info->events->y_offset -= .01 * z * 2;
-	if (key == 126)
+	else if (key == 126)
 		info->events->y_offset += .01 * z * 2;
-	if (key == 124)
+	else if (key == 124)
 		info->events->x_offset -= .01 * z * 2;
-	if (key == 123)
+	else if (key == 123)
 		info->events->x_offset += .01 * z * 2;
 	return(info);
 }
@@ -136,7 +138,7 @@ int		motion_management(int x, int y, t_info *info)
 {
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
 	{
-		if (info->check_j)
+		if (info->check_j && info->julia_tick)
 			info = motion_j(x,y,info);
 		check_fractal(info);
 	}
@@ -158,7 +160,8 @@ void	control_window(t_info *info)
 {
 	if(info->max_trigger)
 	{
-		mlx_string_put(info->mlx, info->mlx_window, 0, 100, 0xFF0000, "MAX ITERATION WARNING!!\n");
+		mlx_string_put(info->mlx, info->mlx_window, 0,
+			120, 0xFF0000, "MAX ITERATION WARNING!!\n");
 		info->max_trigger = 0;
 	}
 	mlx_string_put(info->mlx, info->mlx_window, 0,
@@ -170,7 +173,9 @@ void	control_window(t_info *info)
 	mlx_string_put(info->mlx, info->mlx_window, 0,
 		60, 0x00FF00, "Color [c]");
 	mlx_string_put(info->mlx, info->mlx_window, 0,
-		80, 0x00FF00, "Exit [esc] or *red thingy top left of window*");
+		80, 0x00FF00, "Mouse use for Julia [j]");
+	mlx_string_put(info->mlx, info->mlx_window, 0,
+		100, 0x00FF00, "Exit [esc]");
 }
 void	arg_check(char	*str, t_info *info)
 {

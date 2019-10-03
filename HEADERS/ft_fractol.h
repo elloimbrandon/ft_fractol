@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/10/02 22:10:50 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/10/02 22:28:03 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef	struct		s_info
 	int				iterate_max;
 	int				arg;
 	int				max_trigger;
+	int				julia_tick;
 }					t_info;
 
 /*

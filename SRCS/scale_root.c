@@ -4,7 +4,7 @@ void		m_scale(t_info *info)
 {
 	info->mandel->imag_x = ((double)(info->mandel->x - (WIDTH / 2)) /
 		(double)(WIDTH / 4) * info->events->zoom + info->events->x_offset);
-	info->mandel->imag_y = ((double)(info->mandel->y - (HEIGHT / 2)) / // width
+	info->mandel->imag_y = ((double)(info->mandel->y - (HEIGHT / 2)) /
 		(double)(HEIGHT / 4) * info->events->zoom + info->events->y_offset);
 	info->mandel->old_x = info->mandel->imag_x;
 	info->mandel->old_y = info->mandel->imag_y;
@@ -18,7 +18,6 @@ void		j_scale(t_info *info)
 		(double)(HEIGHT / 4) * info->events->zoom + info->events->y_offset);
 	info->julia->old_x = info->julia->imag_xy;
 	info->julia->old_y = info->julia->imag_yx;
-	// info->julia->count = 0; // *
 }
 
 void        b_scale(t_info *info)
@@ -29,7 +28,6 @@ void        b_scale(t_info *info)
 		(double)(HEIGHT / 4) * info->events->zoom + info->events->y_offset);
     info->burn_s->real_x = info->burn_s->imag_xy;
 	info->burn_s->real_y = info->burn_s->imag_yx;
-	// info->burn_s->count = 0; // *
 }
 
 t_man		square_root_mandel(t_man *mandel)
