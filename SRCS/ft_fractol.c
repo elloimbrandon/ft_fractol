@@ -12,7 +12,6 @@ int		main(int argc, char **argv)
 		if (info->check_j || info->check_m || info->check_b)
 		{
 			handle_mlx(info);
-			// check_fractal(info); 
 			mlx_controls(info);
 			mlx_loop(info->mlx);
 		}
@@ -33,7 +32,7 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->imag_x = 0;
 	info->mandel->imag_y = 0;
 	info->mandel->temp = 0;
-	info->mandel->color = 2051;
+	info->mandel->color = 2050;
 	info->mandel->count = 1;
 	info->mandel->iterate_max = 50;
 	info->mandel->real_x = 0;
@@ -44,7 +43,7 @@ void	init_struct(t_info *info, int argc)
 	info->julia->imag_y = 0;
 	info->julia->imag_xy = -.73;
     info->julia->imag_yx = -.19;
-	info->julia->color = 2051;
+	info->julia->color = 2050;
 	info->julia->count = 1;
 	info->julia->iterate_max = 50;
 	info->julia->real_x = 0;
@@ -55,7 +54,7 @@ void	init_struct(t_info *info, int argc)
 	info->burn_s->imag_y = 0;
 	info->burn_s->imag_xy = .0;
     info->burn_s->imag_yx = .0;
-	info->burn_s->color = 2051;
+	info->burn_s->color = 2050;
 	info->burn_s->count = 1;
 	info->burn_s->iterate_max = 50;
 	info->burn_s->real_x = 0;

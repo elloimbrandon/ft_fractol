@@ -34,32 +34,32 @@ int		mlx_controls(t_info *info)
 int		key_management(int key, t_info *info)
 {
 	info = key_color(key, info);
-	key_iteration(key, info);
-	key_zoom_move(key, info);
+	info = key_iteration(key, info);
+	info = key_zoom_move(key, info);
 	check_fractal(info);
 	return(0);
 }
 
-int		key_zoom_move(int key, t_info *info)
+t_info		*key_zoom_move(int key, t_info *info)
 {	
 	double	z;
 
 	z = info->events->zoom;
-	if (key == 13)
+	if (key == 19)
 		info->events->zoom -= (z / 10);
-	if (key == 1)
+	if (key == 18)
 		info->events->zoom += (z / 10);
 	if (key == 125)
-		info->events->x_offset += .01 * z * 2;
+		info->events->y_offset -= .01 * z * 2;
 	if (key == 126)
-		info->events->x_offset -= .01 * z * 2;
+		info->events->y_offset += .01 * z * 2;
 	if (key == 124)
-		info->events->x_offset += .01 * z * 2;
-	if (key == 123)
 		info->events->x_offset -= .01 * z * 2;
-	return(0);
+	if (key == 123)
+		info->events->x_offset += .01 * z * 2;
+	return(info);
 }
-int		key_iteration(int key, t_info *info)
+t_info		*key_iteration(int key, t_info *info)
 {
 	if (info->check_m)
 	{
@@ -82,7 +82,7 @@ int		key_iteration(int key, t_info *info)
 		if (key == 27 && info->burn_s->iterate_max >= 20)
 			info->burn_s->iterate_max -= 20;
 	}
-	return(0);
+	return(info);
 }
 t_info		*key_color(int key, t_info *info)
 {
