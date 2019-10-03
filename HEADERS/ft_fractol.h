@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:19:27 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/10/02 20:19:38 by brfeltz          ###   ########.fr       */
+/*   Updated: 2019/10/02 21:31:00 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef	struct		s_info
 	int				endian;
 	int				iterate_max;
 	int				arg;
+	int				max_trigger;
 }					t_info;
 
 /*
@@ -135,9 +136,9 @@ int			key_management(int key, t_info *info);
 int			mouse_management(int key, int x, int y, t_info *info);
 int			motion_management(int x, int y, t_info *info);
 int			motion_j(int x, int y, t_info *info);
-int			key_iteration(int key, t_info *info);
+t_info		*key_iteration(int key, t_info *info);
 t_info		*key_color(int key, t_info *info);
-int			key_zoom_move(int key, t_info *info);
+t_info		*key_zoom_move(int key, t_info *info);
 int			ft_close(void *ptr);
 
 #endif

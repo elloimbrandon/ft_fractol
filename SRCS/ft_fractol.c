@@ -26,6 +26,7 @@ void	init_struct(t_info *info, int argc)
 	info->julia = (t_jul*)ft_memalloc(sizeof(t_jul));
 	info->burn_s = (t_bur*)ft_memalloc(sizeof(t_bur));
 	info->events = (t_evn*)ft_memalloc(sizeof(t_evn));
+	info->max_trigger = 0;
 	info->arg = argc;
 	info->mandel->x = 0;
 	info->mandel->y = 0;
@@ -34,7 +35,7 @@ void	init_struct(t_info *info, int argc)
 	info->mandel->temp = 0;
 	info->mandel->color = 2050;
 	info->mandel->count = 1;
-	info->mandel->iterate_max = 50;
+	info->mandel->iterate_max = 40;
 	info->mandel->real_x = 0;
 	info->mandel->real_y = 0;
 	info->julia->x = 0;
@@ -45,7 +46,7 @@ void	init_struct(t_info *info, int argc)
     info->julia->imag_yx = -.19;
 	info->julia->color = 2050;
 	info->julia->count = 1;
-	info->julia->iterate_max = 50;
+	info->julia->iterate_max = 40;
 	info->julia->real_x = 0;
 	info->julia->real_y = 0;
 	info->burn_s->x = 0;
@@ -56,7 +57,7 @@ void	init_struct(t_info *info, int argc)
     info->burn_s->imag_yx = .0;
 	info->burn_s->color = 2050;
 	info->burn_s->count = 1;
-	info->burn_s->iterate_max = 50;
+	info->burn_s->iterate_max = 40;
 	info->burn_s->real_x = 0;
 	info->burn_s->real_y = 0;
 	info->check_m = 0;

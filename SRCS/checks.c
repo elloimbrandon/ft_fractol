@@ -63,23 +63,25 @@ t_info		*key_iteration(int key, t_info *info)
 {
 	if (info->check_m)
 	{
-		if (key == 24)
-			info->mandel->iterate_max += 20;
-		if (key == 27 && info->mandel->iterate_max >= 20)
+		if (key == 24 && info->mandel->iterate_max < 81)
+			info->mandel->iterate_max += 20;			
+		if (key == 27 && info->mandel->iterate_max > 20)
 			info->mandel->iterate_max -= 20;
+		else if(key == 24 && info->mandel->iterate_max > 80)
+			info->max_trigger = 1;
 	}
 	else if (info->check_j)
 	{
-		if (key == 24)
+		if (key == 24 && info->julia->iterate_max < 81)
 			info->julia->iterate_max += 20;
-		if (key == 27 && info->julia->iterate_max >= 20)
+		if (key == 27 && info->julia->iterate_max > 20)
 			info->julia->iterate_max -= 20;
 	}
 	else if (info->check_b)
 	{
-		if (key == 24)
+		if (key == 24 && info->burn_s->iterate_max < 81)
 			info->burn_s->iterate_max += 20;
-		if (key == 27 && info->burn_s->iterate_max >= 20)
+		if (key == 27 && info->burn_s->iterate_max > 20)
 			info->burn_s->iterate_max -= 20;
 	}
 	return(info);
@@ -90,21 +92,17 @@ t_info		*key_color(int key, t_info *info)
 		exit(1);
 	if (info->check_m && key == 8)
 	{
-		if (key == 8 && info->mandel->color <= 99999999)
-		{
-			// printf("color before : %d\n", info->mandel->color);
+		if (info->mandel->color <= 99999999)
 			info->mandel->color *= 2;
-			// printf("color after: %d\n", info->mandel->color);
-		}
 	}
-	if (info->check_j)
+	if (info->check_j && key == 8)
 	{
-		if (key == 8 && info->julia->color <= 99999999)
+		if (info->julia->color <= 99999999)
 			info->julia->color *= 2;
 	}
-	if (info->check_b)
+	if (info->check_b && key == 8)
 	{
-		if (key == 8 && info->burn_s->color <= 99999999)
+		if (info->burn_s->color <= 99999999)
 			info->burn_s->color *= 2;
 	}
 	return(info);
@@ -134,6 +132,11 @@ int		motion_j(int x, int y, t_info *info)
 
 void	control_window(t_info *info)
 {
+	if(info->max_trigger)
+	{
+		mlx_string_put(info->mlx, info->mlx_window, 0, 100, 0xFF0000, "MAX ITERATION WARNING!!\n");
+		info->max_trigger = 0;
+	}
 	mlx_string_put(info->mlx, info->mlx_window, 0,
 		0, 0x00FF00, "Move [<] [^] [v] [>]");
 	mlx_string_put(info->mlx, info->mlx_window, 0,
