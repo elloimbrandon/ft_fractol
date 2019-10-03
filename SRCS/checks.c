@@ -30,7 +30,6 @@ int		mlx_controls(t_info *info)
 	mlx_hook(info->mlx_window, 17, 0, ft_close, info);
 	return(0);
 }
-#include <stdio.h> ///////////REMOVE
 int		key_management(int key, t_info *info)
 {
 	info = key_color(key, info);
@@ -76,6 +75,8 @@ t_info		*key_iteration(int key, t_info *info)
 			info->julia->iterate_max += 20;
 		if (key == 27 && info->julia->iterate_max > 20)
 			info->julia->iterate_max -= 20;
+		else if(key == 24 && info->julia->iterate_max > 80)
+			info->max_trigger = 1;
 	}
 	else if (info->check_b)
 	{
@@ -83,6 +84,8 @@ t_info		*key_iteration(int key, t_info *info)
 			info->burn_s->iterate_max += 20;
 		if (key == 27 && info->burn_s->iterate_max > 20)
 			info->burn_s->iterate_max -= 20;
+		else if(key == 24 && info->burn_s->iterate_max > 80)
+			info->max_trigger = 1;
 	}
 	return(info);
 }
@@ -92,17 +95,17 @@ t_info		*key_color(int key, t_info *info)
 		exit(1);
 	if (info->check_m && key == 8)
 	{
-		if (info->mandel->color <= 99999999)
+		if (info->mandel->color < 90000000)
 			info->mandel->color *= 2;
 	}
 	if (info->check_j && key == 8)
 	{
-		if (info->julia->color <= 99999999)
+		if (info->julia->color < 90000000)
 			info->julia->color *= 2;
 	}
 	if (info->check_b && key == 8)
 	{
-		if (info->burn_s->color <= 99999999)
+		if (info->burn_s->color < 90000000)
 			info->burn_s->color *= 2;
 	}
 	return(info);
@@ -113,13 +116,13 @@ int		motion_management(int x, int y, t_info *info)
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
 	{
 		if (info->check_j)
-			motion_j(x,y,info);
+			info = motion_j(x,y,info);
 		check_fractal(info);
 	}
 	return (0);
 }
 
-int		motion_j(int x, int y, t_info *info)
+t_info		*motion_j(int x, int y, t_info *info)
 {
 	info->julia->imag_xy = ((double)x / (WIDTH));
 	info->julia->imag_yx = ((double)y / (WIDTH));
@@ -127,7 +130,7 @@ int		motion_j(int x, int y, t_info *info)
 		info->julia->imag_xy = info->julia->imag_xy - 2;
 	if (info->julia->imag_yx > 2)
 		info->julia->imag_yx = info->julia->imag_yx - 2;
-	return(0);
+	return(info);
 }
 
 void	control_window(t_info *info)

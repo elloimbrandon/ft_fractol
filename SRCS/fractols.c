@@ -11,7 +11,7 @@ void	ft_mandelbrot(t_info *info)
 			m_scale(info);
 			info->mandel->count = 0;
 			while (++info->mandel->count != info->mandel->iterate_max &&  
-			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3)) // 3.0 <
+			(sqrt((info->mandel->imag_x * info->mandel->imag_x) + (info->mandel->imag_y * info->mandel->imag_y)) < 3.0)) /// no decimal
 				square_root_mandel(info->mandel);
 			if (info->mandel->iterate_max == info->mandel->count)
 				all_pixel(info, info->mandel->x, info->mandel->y, 0);
@@ -35,7 +35,7 @@ void	ft_julia(t_info *info)
 			j_scale(info);
 			info->julia->count = 0;
 			while (++info->julia->count != info->julia->iterate_max &&  
-				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y < 4) // 4.0 <=
+				info->julia->imag_x * info->julia->imag_x + info->julia->imag_y * info->julia->imag_y < 4.0)
 				square_root_julia(info->julia);
 			if (info->julia->iterate_max == info->julia->count)
 				all_pixel(info, info->julia->x, info->julia->y, 0);
@@ -59,7 +59,7 @@ void	ft_burn_s(t_info *info)
 			b_scale(info);
 			info->burn_s->count = 0;
 			while (info->burn_s->count != info->burn_s->iterate_max &&  
-				info->burn_s->real_x * info->burn_s->real_x + info->burn_s->real_y * info->burn_s->real_y < 4) // 4.0 <=
+				info->burn_s->real_x * info->burn_s->real_x + info->burn_s->real_y * info->burn_s->real_y < 4.0)
 				square_root_burn_s(info->burn_s);
 			if (info->burn_s->iterate_max == info->burn_s->count)
 				all_pixel(info, info->burn_s->x, info->burn_s->y, 0);
