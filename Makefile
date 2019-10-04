@@ -1,4 +1,4 @@
-SRCS = ./SRCS/ft_fractol.c ./SRCS/checks.c ./SRCS/handles.c ./SRCS/scale_root.c ./SRCS/fractols.c
+SRCS = ./SRCS/ft_fractol.c ./SRCS/scale_root.c ./SRCS/init_structs.c ./SRCS/ft_keys.c ./SRCS/ft_controls.c ./SRCS/checks_pix.c ./SRCS/fractols.c
 
 NAME = fractol
 
