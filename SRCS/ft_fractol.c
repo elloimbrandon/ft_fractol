@@ -6,7 +6,7 @@
 /*   By: brfeltz <brfeltz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:22:54 by brfeltz           #+#    #+#             */
-/*   Updated: 2019/10/03 17:10:42 by brfeltz          ###   ########.fr       */
+/*   Updated: 2020/02/04 13:26:22 by brfeltz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	mlx_controls(t_info *info)
 
 void	check_fractal(t_info *info)
 {
-	mlx_clear_window(info->mlx, info->mlx_window);
+	//mlx_clear_window(info->mlx, info->mlx_window); // dont need, runs faster
 	if (info->check_m)
 	{
 		ft_mandelbrot(info);
